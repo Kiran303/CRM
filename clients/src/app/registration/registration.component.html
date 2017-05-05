@@ -1,0 +1,85 @@
+ <form (submit) ="addUser()" data-toggle="validator" role="form" autocomplete="off" >
+ <div class="container">
+    <div class="well ng-scope" style="height:650px;" style="background-color:#cbd9f2;">
+   <div class="row">
+      <div class="col-md-4"></div>
+       <div class="col-md-4">
+          <h2 class="page-header"  style="padding-left:80px">Registration</h2>
+       </div>
+        <div class="col-md-4"></div>
+   </div> 
+   <br/> <br/>  <br/>  <br/>
+ 
+ <div class="row">
+    <div class="col-md-2"></div>
+         <div class="col-md-4">
+                <div class="form-group">
+                   <md-input-container style="width:320px;">
+                   <input mdInput type="text" [(ngModel)]="first_name" placeholder="First Name" name="firstname" required >
+                  </md-input-container>
+                </div>
+
+                 <div class="form-group">
+                 <md-input-container style="width:320px;">
+                   <input mdInput type="text" [(ngModel)]="last_name" placeholder="Last Name" name="lastname" required>
+                  </md-input-container>
+                </div>
+                  <div class="form-group">
+                    <md-input-container style="width:320px;">
+                         <input mdInput type="password" [(ngModel)]="password"  placeholder="Password" name="password" required>
+                    </md-input-container>
+                 </div>
+                 <div class="form-group">
+                     <md-input-container style="width:320px;">
+                          <input mdInput type="password" [(ngModel)]="cpassword"   placeholder="Confirm Password" name="cpassword" required>
+                     </md-input-container>
+                  </div>
+
+       </div>
+            <div class="col-md-4">
+                <div class="form-group">
+               <md-input-container style="width:320px;">
+                  <input mdInput type="text" [(ngModel)]="phone" name="phone"  placeholder="Mobile Number" required>
+                 </md-input-container>
+                 </div>
+
+                <div class="form-group">
+                   <md-input-container style="width:320px;">
+                   <input mdInput type="text" [(ngModel)]="email" name="email"  placeholder="Email" required>
+                   </md-input-container>
+                 </div>
+
+               <div class="form-group">
+                  <md-input-container style="width:320px;">
+                      <input mdInput type="text" [(ngModel)]="state" name="state"  placeholder="State" required>
+                  </md-input-container>
+                       </div>
+                  
+                  <div class="form-group">
+                  <md-input-container style="width:320px;">
+                     <input mdInput type="text" [(ngModel)]="city" name="city"  placeholder="City" required>
+                 </md-input-container>
+                </div>
+
+                  
+            
+               </div>
+             <div class="col-md-2"> </div>
+           </div>
+            <br/> <br/>
+                       
+               <div  class="row"> 
+                       <div class="col-md-4"></div> 
+                            <div class="col-md-4">
+                               <input type= "submit"   class= "btn btn btn-primary" value= "Sign up" style='margin-left:50px'>
+                               <input type= "submit" [routerLink]="['/login']" class= "btn btn btn-primary" value= "Cancel" style='margin-left:80px'>
+                            </div>          
+ 
+                     <div class="col-md-4"></div>
+               </div> 
+     </div>
+ </div>
+  </form>
+
+     
+              

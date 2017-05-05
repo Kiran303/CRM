@@ -1,0 +1,34 @@
+<div class="container">
+    <div class="row">
+        <div class="form_bg">
+            <form (submit) ="Login()" autocomplete="off">
+                 <h2 class="text-center">Login</h2>
+                <br/> 
+
+       
+                <div class="form-group">
+                   <md-input-container class="example-full-width">
+                   <input mdInput type="text" [(ngModel)]="email" placeholder="Email" name="email" required>
+                  </md-input-container>
+                </div>
+        
+
+                  <div class="form-group">
+                   <md-input-container class="example-full-width">
+                   <input mdInput type="password" [(ngModel)]="password" placeholder="Password" name="password" required>
+                  </md-input-container>
+                </div>
+              
+                <div class="align-center">
+                    <input type= "submit" class= "btn btn-primary" value= "Login">
+                </div>
+                  <br/>
+
+                  <div class="form-group text-center">
+                    <a href="#">Forgot Password?</a>&nbsp;|<a [routerLink]="['/register']"class="btn btn-link">Sign up</a>
+                 </div>
+
+            </form>
+        </div>
+    </div>
+</div>
