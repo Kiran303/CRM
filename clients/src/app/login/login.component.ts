@@ -76,7 +76,7 @@ Login(){
       var local_storage = JSON.parse(localStorage.getItem('currentUser'));
       //console.log(`in Index init() ${local_storage.token}`);
       if(local_storage.token){
-      console.log('login if case');
+     //console.log('login if case');
       this.router.navigate(['/index']);
       }else{
         console.log('login else case');
