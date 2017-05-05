@@ -12,7 +12,7 @@ var app = express();
 const route = require('./routes/route');
 
 
-//connect to Mongodb
+//connect to Mongodb refreshed
 
     mongoose.connect('mongodb://localhost:27017/crmtool');
     //on connection
