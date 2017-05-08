@@ -15,24 +15,20 @@ export class RegistrationService {
       .map(res => res.json());
     }
    
-   //add contact
-   addUser(newUser)
+   //register User
+   registerUser(newUser)
    { 
-   
      var headers = new Headers();
-     headers.append('Content-Type','application/json');
-     
-     return this.http.post('http://localhost:3000/api/adduser', newUser,{headers:headers})
-    .map(res => res.json());
-   
-    
+     headers.append('Content-Type','application/json');  
+     return this.http.post('http://localhost:3000/api/registerUser', newUser,{headers:headers})
+    .map(res => res.json()); 
    } 
 
    //delete contact
    deleteUser(id)
    {
-  return this.http.delete('http://localhost:3000/api/deleteuser/'+id)
-    .map(res => res.json());
+      return this.http.delete('http://localhost:3000/api/deleteuser/'+id)
+      .map(res => res.json());
    }
 
 

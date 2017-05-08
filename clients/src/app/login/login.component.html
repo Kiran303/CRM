@@ -1,4 +1,5 @@
 <div class="container">
+    <div *ngIf="show" style="color:red;font-size: 20px;text-align: center;">{{msg}}</div>
     <div class="row">
         <div class="form_bg">
             <form (submit) ="Login()" autocomplete="off">
@@ -25,7 +26,7 @@
                   <br/>
 
                   <div class="form-group text-center">
-                    <a href="#">Forgot Password?</a>&nbsp;|<a [routerLink]="['/register']"class="btn btn-link">Sign up</a>
+                    <a [routerLink]="['/forgot']"class="btn btn-link">Forgot Password? </a>&nbsp;|<a [routerLink]="['/register']"class="btn btn-link">Sign up</a>
                  </div>
 
             </form>
