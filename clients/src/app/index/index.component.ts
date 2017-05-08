@@ -22,7 +22,7 @@ user: Login;
 
     try{
       var local_storage = JSON.parse(localStorage.getItem('currentUser'));
-      console.log(`in Index init() ${local_storage.token}`);
+     // console.log(`in Index init() ${local_storage.token}`);
       if(local_storage.token){
       console.log('if case');
       this.router.navigate(['/index']);
@@ -33,8 +33,6 @@ user: Login;
     catch(e){ 
       this.router.navigate(['/login']);
     }
-   
-
     //example of verification
    // this.indexService.verify().subscribe( (res) => this.message = res['message']);
   }

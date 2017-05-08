@@ -11,6 +11,8 @@ import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { IndexComponent } from './index/index.component';
 import { KedarComponent } from './kedar/kedar.component';
+import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
+import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
 
 
 @NgModule({
@@ -19,7 +21,9 @@ import { KedarComponent } from './kedar/kedar.component';
     LoginComponent,
     RegistrationComponent,
     IndexComponent,
-    KedarComponent
+    KedarComponent,
+	ForgotpasswordComponent,
+    ResetpasswordComponent
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,5 @@
 const express = require('express');
+var nodemailer = require("nodemailer");
 const router = express.Router();
 
 var app = express();
@@ -7,9 +8,97 @@ var jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
 const User = require('../models/user');
 const config = require('../models/token');
 var auth = require('../middleware/auth');
+var emailId ;
 
+var smtpTransport = nodemailer.createTransport({
+    service: 'gmail',
+    host: 'smtp.gmail.com',
+    port: 587,
+    auth: {
+        user: 'vikas.ahire@flowian.com',
+        pass: '15*08*1990*'
+    },
+    tls: {rejectUnauthorized: false},
+    debug:true
+});
 
+// send mail with defined transport object
 
+//send Reset Link
+router.post('/sendResetLink',(req, res)=>{
+    console.log(req.body.email_id);
+
+  User.findOne({'email' : req.body.email_id}, (err, user) => {
+    console.log('Your Email ID is', req.body.email_id);
+    if( err )
+      return done(err);
+     //if User Email is not registerd 
+            if( !user ) {
+            let content = {
+                success: false,
+                message: 'User does not exists'
+            };
+            res.send(content);
+            return;
+        }else{
+                    emailId = req.body.email_id;
+                    var text = "http://localhost:4200/reset";
+                	var mailOptions={
+                    from: "vikas.ahire@flowian.com", // sender address
+                    to: req.body.email_id, // list of receivers
+                    subject: "Hello", // Subject line
+                    text: "Hii", // plaintext body
+                    html: "Hii your new password can be reset from here:"+text // html body
+                	}
+                	console.log(mailOptions);
+                	smtpTransport.sendMail(mailOptions, function(error, response){
+                   	 if(error){
+                        	console.log(error);
+                		    res.end("error");
+                	 }else{
+                         let content = {
+                             success: true,
+                             message: 'Mail sended Successfully'
+                                };
+                        res.send(content);
+                        return;
+                        }
+                    });
+            }
+  });
+
+});
+ 
+//update reset password
+router.post('/reset',(req, res, next)=>{
+    //console.log('emailId is -------->',emailId);
+    //console.log("reset password",req.body.password);
+    let newUser = new User({ });
+     cpassword = newUser.generateHash(req.body.password); 
+
+     if(!emailId){
+         let content = {
+                        success: false,
+                        message: 'Bad Request'
+                    };
+                    res.send(content);
+                    return;
+     }
+    
+    User.findOneAndUpdate({ email: emailId },{ password: cpassword }, function(err, user) {
+        if (err) throw err;
+        // we have the updated user returned to us
+                    let content = {
+                        success: true,
+                        message: 'New password updated Successfully'
+                     //    token: token
+                    };
+                    emailId = '';
+                    res.send(content);
+                    return;                 
+        });
+
+    });
 
 //retriving contacts
 router.get('/getuser',(req, res, next)=>{
@@ -39,16 +128,16 @@ router.get('/index',auth.verifyToken,(req, res, next)=>{
 
 
 router.post('/login',(req, res, next)=>{
-console.log('in login api');
-User.findOne({'email' : req.body.email}, (err, user) => {
-console.log('Email ID ', req.body.email);
+    console.log('in login api');
+    User.findOne({'email' : req.body.email}, (err, user) => {
+    console.log('Email ID ', req.body.email);
     if( err )
       return done(err);
 
     if( !user ) {
       let content = {
         success: false,
-        message: 'User does not exists'
+        message: 'Invalid Credentials Please check Username or password again'
       };
       res.send(content);
       return;
@@ -61,8 +150,7 @@ console.log('Email ID ', req.body.email);
       };
       res.send(content);
       return;
-    }
-
+    }    
     let token = jwt.sign(user, config.secret, {
       expiresIn : 60*60*24
     });
@@ -76,12 +164,8 @@ console.log('Email ID ', req.body.email);
   })
 });
 
-
-
-
-
-//add User
-router.post('/adduser',(req, res, next)=>{
+//Register User 
+router.post('/registerUser',(req, res, next)=>{
 
     User.findOne({'email' : req.body.email}, (err, user) => {
     console.log('Registerd Email ID ', req.body.email);
@@ -133,12 +217,10 @@ router.post('/adduser',(req, res, next)=>{
 
     }
 
-    });
-    
-  
-    
-
+    });    
 });
+
+
 //Delete User
 router.delete('/deleteuser/:id',(req, res, next)=>{
     User.remove({_id: req.params.id}, function(err, result){

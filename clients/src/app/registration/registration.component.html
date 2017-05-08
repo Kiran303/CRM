@@ -1,4 +1,4 @@
- <form (submit) ="addUser()" data-toggle="validator" role="form" autocomplete="off" >
+ <form (submit) ="registerUser()" data-toggle="validator" role="form" autocomplete="off" >
  <div class="container">
     <div class="well ng-scope" style="height:650px;" style="background-color:#cbd9f2;">
    <div class="row">
@@ -43,11 +43,17 @@
                  </md-input-container>
                  </div>
 
-                <div class="form-group">
+                <!--<div class="form-group">
                    <md-input-container style="width:320px;">
                    <input mdInput type="text" [(ngModel)]="email" name="email"  placeholder="Email" required>
                    </md-input-container>
-                 </div>
+                 </div>-->
+              <div class="form-group">
+                  <md-input-container style="width:320px;">
+                  <input mdInput type="text" [(ngModel)]="email" name="email"  placeholder="Email" required>
+                  </md-input-container>
+                   <div *ngIf="show">{{msg}}</div>
+              </div>
 
                <div class="form-group">
                   <md-input-container style="width:320px;">

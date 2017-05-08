@@ -16,6 +16,8 @@ export class LoginComponent implements OnInit {
  user:boolean=false;
  email:String;
  password:String;
+ msg: String;
+show:Boolean=false;
 
   constructor( 
         private loginService:LoginService,
@@ -33,10 +35,28 @@ Login(){
      this.loginService.userLogin(newUser)
     .subscribe(logins=> {
       this.logins.push(logins);
-      console.log(this.logins[0]['success']);
-      if(this.logins[0]['success']==true) 
+      console.log(this.logins);
+      // if(this.logins[0]['success']==true) {
+      //     this.router.navigate(['/index']);
+      // }else{
+      //   console.log('Login msg:',this.logins[0]['message']);
+      //     this.msg=this.logins[0]['message']; 
+      //     this.show=true;
+      //  console.log("after login");
+      // }
+      for(let i=0;i<this.logins.length;i++)
+      {
+       if(this.logins[i]['success']==true){ 
+         
                  this.router.navigate(['/index']);
-       console.log("after login");
+                 
+      }else{
+          console.log('Message',this.logins[i]['message']);
+          this.msg=this.logins[0]['message'];
+          this.show=true;
+        }
+      }
+               
     });
 }
 
@@ -76,7 +96,7 @@ Login(){
       var local_storage = JSON.parse(localStorage.getItem('currentUser'));
       //console.log(`in Index init() ${local_storage.token}`);
       if(local_storage.token){
-      console.log('login if case');
+     //console.log('login if case');
       this.router.navigate(['/index']);
       }else{
         console.log('login else case');

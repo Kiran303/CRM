@@ -14,6 +14,8 @@ export class RegistrationComponent implements OnInit {
 //registers: Register[];
  registers:Register[]=[];
 register: Register;
+msg: String;
+show:Boolean=false;
 
 first_name: String;
 last_name: String;
@@ -27,7 +29,7 @@ cpassword:string;
   constructor(private registerservice: RegistrationService, private router: Router) { }
 
  
-  addUser()
+  registerUser()
   {
     const newUser={
       first_name: this.first_name,
@@ -38,26 +40,26 @@ cpassword:string;
       state:this.state,
       password:this.password,
       cpassword:this.cpassword
-    }
-    this.registerservice.addUser(newUser)
-    .subscribe(registers => {
-      this.registers.push(registers); 
+    }   
+    this.registerservice.registerUser(newUser)
+    .subscribe(register => {
+      this.registers.push(register); 
       console.log('Registers',this.registers);
-       if(this.registers[0]['success']==true){ 
+      for(let i=0;i<this.registers.length;i++)
+      {
+       if(this.registers[i]['success']==true){ 
+         
                  this.router.navigate(['/login']);
+                 
       }else{
-          console.log('Message',this.registers[0]['message']);
+          console.log('Message',this.registers[i]['message']);
+          this.msg=this.registers[0]['message'];
+          this.show=true;
+          this.router.navigate(['/register']);
         }
-    });
-    
-      this.first_name=null;
-      this.last_name=null;
-      this.phone=null;
-      this.email=null;
-      this.city=null;
-      this.state=null;
-      this.password=null;
-      this.cpassword=null;               
+      }
+    }); 
+      this.registers=[];            
   }
  
   //deleteContact into mongodb
